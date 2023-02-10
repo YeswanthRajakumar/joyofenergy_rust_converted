@@ -6,7 +6,7 @@ const HUMIDITY_RAW_MAX: i32 = 1024;
 // RAW maximum value of the sensor.
 const HUMIDITY_MIN: i32 = 0;
 // Minimum range value in physical units (celcius)
-const HUMIDITY_MAX: i32 = 100;       // Maximum range value in physical units (celcius)
+const HUMIDITY_MAX: i32 = 100; // Maximum range value in physical units (celcius)
 
 pub struct HumiditySensor {}
 
@@ -25,11 +25,19 @@ impl HumiditySensor {
     }
 }
 
-
 impl HumiditySensor {
-    pub fn GetCurrentReading(&self) -> f32 {
+    pub fn get_current_reading(&self) -> f32 {
         let rand = rand::thread_rng().gen_range(120..900) as f32;
-        let raw_reading = (rand % (HumiditySensor::m_raw_max() - HumiditySensor::m_raw_min())) + HumiditySensor::m_raw_min();
-        (((HumiditySensor::m_max() - HumiditySensor::m_min()) / (HumiditySensor::m_raw_max() - HumiditySensor::m_raw_min())) * (raw_reading))
+        let raw_reading = rand % (HumiditySensor::m_raw_max() - HumiditySensor::m_raw_min())
+            + HumiditySensor::m_raw_min();
+        ((HumiditySensor::m_max() - HumiditySensor::m_min())
+            / (HumiditySensor::m_raw_max() - HumiditySensor::m_raw_min()))
+            * (raw_reading)
+    }
+
+        pub fn display(&self) {
+        for _ in 0..10 {
+            print!("Humidity: {}\n", self.get_current_reading());
+        }
     }
 }
