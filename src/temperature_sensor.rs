@@ -6,7 +6,7 @@ const TEMP_SENSOR_RAW_MAX: i32 = 1024;
 // RAW maximum value of the sensor.
 const TEMP_SENSOR_MIN: i32 = 0;
 // Minimum range value in physical units (celcius)
-const TEMP_SENSOR_MAX: i32 = 100;       // Maximum range value in physical units (celcius)
+const TEMP_SENSOR_MAX: i32 = 100; // Maximum range value in physical units (celcius)
 
 pub struct TemperatureSensor {}
 
@@ -25,12 +25,20 @@ impl TemperatureSensor {
     }
 }
 
-
 impl TemperatureSensor {
-    pub fn GetCurrentReading(&self) -> f32 {
+    pub fn get_current_reading(&self) -> f32 {
         let rand = rand::thread_rng().gen_range(120..900) as f32;
-        let raw_reading = ((rand % (TemperatureSensor::m_raw_max() - TemperatureSensor::m_raw_min())) + TemperatureSensor::m_raw_min());
-        let result = ((TemperatureSensor::m_max() - TemperatureSensor::m_min()) / (TemperatureSensor::m_raw_max() - TemperatureSensor::m_raw_min())) * (raw_reading);
+        let raw_reading = (rand
+            % (TemperatureSensor::m_raw_max() - TemperatureSensor::m_raw_min())) + TemperatureSensor::m_raw_min();
+        let result = ((TemperatureSensor::m_max() - TemperatureSensor::m_min())
+            / (TemperatureSensor::m_raw_max() - TemperatureSensor::m_raw_min()))
+            * (raw_reading);
         result
+    }
+
+    pub fn display(&self) {
+        for _ in 0..10 {
+            print!("Temperature: {}\n", self.get_current_reading());
+        }
     }
 }
