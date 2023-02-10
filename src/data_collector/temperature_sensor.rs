@@ -37,8 +37,6 @@ impl TemperatureSensor {
     }
 
     pub fn display(&self) {
-        for _ in 0..10 {
             print!("Temperature: {}\n", self.get_current_reading());
-        }
     }
 }

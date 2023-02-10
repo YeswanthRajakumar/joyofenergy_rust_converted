@@ -36,8 +36,6 @@ impl HumiditySensor {
     }
 
         pub fn display(&self) {
-        for _ in 0..10 {
             print!("Humidity: {}\n", self.get_current_reading());
-        }
     }
 }

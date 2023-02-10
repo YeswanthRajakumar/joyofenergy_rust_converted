@@ -11,8 +11,6 @@ impl ProximitySensor {
     }
 
         pub fn display(&self) {
-        for _ in 0..10 {
             print!("Proximity: {}\n", self.get_proximity_state());
-        }
     }
 }
